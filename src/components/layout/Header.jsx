@@ -16,6 +16,12 @@ export default function Header() {
         >
           My adds
         </NavLink>
+        <NavLink
+          className='text-lg px-3 py-2 hover:bg-slate-200'
+          to={'/create-add'}
+        >
+          Create add
+        </NavLink>
         <NavLink className='text-lg px-3 py-2 hover:bg-slate-200' to={'/login'}>
           Login
         </NavLink>
