@@ -10,9 +10,8 @@ export default function App() {
       <Header />
       <Routes>
         <Route path='/' element={<HomePage />} />
-        <Route path='/my-adds' element={<MyAccountPage />} />
-        <Route path='/create-add' element={<CreateAdd />} />
-        <Route path='/my-adds' element={<MyAccountPage />} />
+        <Route path='/my-ads' element={<MyAccountPage />} />
+        <Route path='/create-ad' element={<CreateAdd />} />
       </Routes>
     </div>
   );
