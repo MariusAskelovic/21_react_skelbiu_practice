@@ -2,8 +2,11 @@ import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useAuth } from '../store/AuthProvider';
 
 export default function CreateAd() {
+  const ctx = useAuth();
+
   const formik = useFormik({
     initialValues: {
       title: '',
@@ -37,20 +40,24 @@ export default function CreateAd() {
       tags: Yup.string(),
       description: Yup.string().max(200, 'Max 200 symbols'),
     }),
-    onSubmit: (value) => {
-      console.log(value);
-      sendAd(value);
+    onSubmit: (values) => {
+      console.log(values);
+      const newObj = {
+        ...values,
+        userId: ctx.userUid,
+      };
+      sendAd(newObj);
     },
   });
 
-  async function sendAd(e) {
-    console.log('e ===', e);
+  async function sendAd(dataToSend) {
+    console.log('e ===', dataToSend);
     try {
       const docRef = await addDoc(collection(db, 'ads-collection'), {
-        ...e,
+        ...dataToSend,
         id: docRef.id,
       });
-      console.log('New Ad Made: ', docRef);
+      console.log('New Ad Made: ', docRef.id);
     } catch (error) {
       console.log('Error while creating an Ad :', error);
     }
@@ -176,7 +183,10 @@ export default function CreateAd() {
           >
             {`<<< Add an AD >>>`}
           </button>
-          <button className='bg-slate-500 mr-1 p-2 text-white border-4 border-slate-500 w-20 uppercase text-sm'>
+          <button
+            onClick={formik.handleReset}
+            className='bg-slate-500 mr-1 p-2 text-white border-4 border-slate-500 w-20 uppercase text-sm'
+          >
             Reset
           </button>
         </div>

@@ -1,9 +1,11 @@
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 import { useEffect, useState } from 'react';
+import { useAuth } from '../store/AuthProvider';
 
 export default function HomePage() {
   const [adsDbArr, setAdsDbArr] = useState([]);
+  const ctx = useAuth();
 
   useEffect(() => {
     getAds();
@@ -25,10 +27,14 @@ export default function HomePage() {
   return (
     <div className='container mb-10'>
       <h1 className='text-3xl mb-4 pt-4'>HomePage</h1>
-      <ul className='flex gap-x-8 gap-y-16 flex-wrap justify-between'>
+      <ul className='flex gap-x-8 gap-y-16 flex-wrap justify-evenly'>
         {adsDbArr.map((adObj) => (
           <li
-            className='flex flex-col justify-between h-[440px] w-[280px]'
+            className={`flex flex-col justify-between h-[440px] w-[280px] p-2 ${
+              ctx.userUid === adObj.userId
+                ? 'bg-orange-200 border-2 border-orange-500 rounded-xl shadow-pink-600 shadow-md'
+                : ''
+            }`}
             key={adObj.id}
           >
             <img

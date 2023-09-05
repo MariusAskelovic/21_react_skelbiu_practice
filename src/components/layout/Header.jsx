@@ -37,7 +37,7 @@ export default function Header() {
         Our<strong>Ads</strong>
       </Link>
       <nav>
-        <OneLink to='/Ads' title='Ads' />
+        <OneLink to='/' title='Ads' />
         {ctx.isUserLoggedIn && (
           <>
             <OneLink to='/my-ads' title='My Ads' />
