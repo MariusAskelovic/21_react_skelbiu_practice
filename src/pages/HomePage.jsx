@@ -32,6 +32,7 @@ export default function HomePage() {
             key={adObj.id}
           >
             <img
+              loading='lazy'
               className='h-full object-cover mb-5 rounded-xl'
               src={adObj.photoURL}
               alt={adObj.title}
