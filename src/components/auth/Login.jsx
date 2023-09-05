@@ -1,6 +1,6 @@
 import {
   getAuth,
-  createUserWithEmailAndPassword,
+  // createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
 import { useFormik } from 'formik';
@@ -44,22 +44,34 @@ export default function Login() {
         onSubmit={formik.handleSubmit}
       >
         <div className='flex gap-2 mb-2'>
-          <input
-            className='border shadow-lg p-1 w-full'
-            type='email'
-            placeholder='email'
-            id='email'
-            onChange={formik.handleChange}
-            value={formik.values.email}
-          />
-          <input
-            className='border shadow-lg p-1 w-full'
-            type='password'
-            placeholder='password'
-            id='password'
-            onChange={formik.handleChange}
-            value={formik.values.password}
-          />
+          <div className='flex flex-col'>
+            <input
+              className='border shadow-lg p-1 w-full'
+              type='email'
+              placeholder='email'
+              id='email'
+              onChange={formik.handleChange}
+              value={formik.values.email}
+              onBlur={formik.handleBlur}
+            />
+            {formik.errors.email && formik.touched.email && (
+              <p className='text-md text-red-500'>{formik.errors.email}</p>
+            )}
+          </div>
+          <div className='flex flex-col'>
+            <input
+              className='border shadow-lg p-1 w-full'
+              type='password'
+              placeholder='password'
+              id='password'
+              onChange={formik.handleChange}
+              value={formik.values.password}
+              onBlur={formik.handleBlur}
+            />
+            {formik.errors.password && formik.touched.password && (
+              <p className='text-md text-red-500'>{formik.errors.password}</p>
+            )}
+          </div>
         </div>
         <div className='flex gap-2'>
           <button

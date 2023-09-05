@@ -1,5 +1,5 @@
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { googleProvider } from '../firebase/firebase';
+import { googleProvider } from '../../firebase/firebase';
 import { FcGoogle } from 'react-icons/fc';
 
 export default function GoogleLogin() {

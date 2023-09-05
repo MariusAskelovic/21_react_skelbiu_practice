@@ -1,5 +1,5 @@
-import GoogleLogin from '../components/GoogleLogin';
-import Login from '../components/Login';
+import GoogleLogin from '../components/auth/GoogleLogin';
+import Login from '../components/auth/Login';
 
 export default function LoginPage() {
   return (
