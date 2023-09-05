@@ -14,6 +14,7 @@ export default function CreateAd() {
       photoURL: '',
       tags: '',
       description: '',
+      userId: '',
     },
     validationSchema: Yup.object({
       title: Yup.string()

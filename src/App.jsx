@@ -28,7 +28,7 @@ export default function App() {
             ctx.isUserLoggedIn ? <CreateAdd /> : <Navigate to={'/login'} />
           }
         />
-        <Route path='/login' element={<LoginPage />} />
+        {!ctx.isUserLoggedIn && <Route path='/login' element={<LoginPage />} />}
         <Route
           path='*'
           element={

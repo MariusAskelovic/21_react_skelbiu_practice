@@ -5,10 +5,12 @@ import {
 } from 'firebase/auth';
 import { useFormik } from 'formik';
 import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
 export default function Login() {
   const auth = getAuth();
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -23,19 +25,7 @@ export default function Login() {
     }),
     onSubmit: (values) => {
       loginWithFire(values.email, values.password);
-      //   console.log(values);
-      //  signInWithEmailAndPassword(auth, values.email, values.password)
-      //   .then((userCredential) => {
-      //     // Signed in
-      //     const user = userCredential.user;
-      //     console.log('user ===', user);
-      //     // ...
-      //   })
-      //   .catch((error) => {
-      //     const errorCode = error.code;
-      //     const errorMessage = error.message;
-      //     console.log(errorCode + ' ' + errorMessage);
-      //   });
+      navigate('/', { replace: true });
     },
   });
 
@@ -47,6 +37,7 @@ export default function Login() {
         // Signed in
         const user = userCredential.user;
         console.log('user login OK ===', user);
+
         // ...
       })
       .catch((error) => {
