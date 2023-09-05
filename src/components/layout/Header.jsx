@@ -25,7 +25,7 @@ export default function Header() {
             <OneLink to='/create-ad' title='Create Ads' />
           </>
         )}
-        <OneLink to='/login' title='Login' />
+        {!ctx.isUserLoggedIn && <OneLink to='/login' title='Login' />}
       </nav>
     </header>
   );
