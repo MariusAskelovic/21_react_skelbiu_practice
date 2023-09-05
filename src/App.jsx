@@ -5,12 +5,14 @@ import Header from './components/layout/Header';
 import CreateAdd from './pages/CreateAdd';
 import LoginPage from './pages/LoginPage';
 import { useAuth } from './store/AuthProvider';
+import { Toaster } from 'react-hot-toast';
 
 export default function App() {
   const ctx = useAuth();
   ctx.isUserLoggedIn;
   return (
     <div>
+      <Toaster />
       <Header />
       <Routes>
         <Route path='/' element={<HomePage />} />

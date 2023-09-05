@@ -4,6 +4,7 @@ import {
   signInWithEmailAndPassword,
 } from 'firebase/auth';
 import { useFormik } from 'formik';
+import { toast } from 'react-hot-toast';
 import * as Yup from 'yup';
 
 export default function Login() {
@@ -11,8 +12,8 @@ export default function Login() {
 
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: '',
+      email: 'admin@admin.lt',
+      password: '123456',
     },
     validationSchema: Yup.object({
       email: Yup.string()
@@ -20,22 +21,42 @@ export default function Login() {
         .required('email is required'),
       password: Yup.string().required('password is required'),
     }),
-    onSubmit: async (values) => {
+    onSubmit: (values) => {
+      loginWithFire(values.email, values.password);
       //   console.log(values);
-      await signInWithEmailAndPassword(auth, values.email, values.password)
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-          console.log('user ===', user);
-          // ...
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorCode + ' ' + errorMessage);
-        });
+      //  signInWithEmailAndPassword(auth, values.email, values.password)
+      //   .then((userCredential) => {
+      //     // Signed in
+      //     const user = userCredential.user;
+      //     console.log('user ===', user);
+      //     // ...
+      //   })
+      //   .catch((error) => {
+      //     const errorCode = error.code;
+      //     const errorMessage = error.message;
+      //     console.log(errorCode + ' ' + errorMessage);
+      //   });
     },
   });
+
+  function loginWithFire(email, password) {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        toast.success('Login success');
+        // Signed in
+        const user = userCredential.user;
+        console.log('user login OK ===', user);
+        // ...
+      })
+      .catch((error) => {
+        toast.error('Login failed, check email or password');
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.warn('errorCode ===', errorCode);
+        console.warn('errorMessage ===', errorMessage);
+      });
+  }
 
   return (
     <div className=''>
@@ -44,7 +65,7 @@ export default function Login() {
         onSubmit={formik.handleSubmit}
       >
         <div className='flex gap-2 mb-2'>
-          <div className='flex flex-col'>
+          <div className='flex flex-col w-full'>
             <input
               className='border shadow-lg p-1 w-full'
               type='email'
@@ -55,10 +76,12 @@ export default function Login() {
               onBlur={formik.handleBlur}
             />
             {formik.errors.email && formik.touched.email && (
-              <p className='text-md text-red-500'>{formik.errors.email}</p>
+              <p className='text-md text-red-500 text-center'>
+                {formik.errors.email}
+              </p>
             )}
           </div>
-          <div className='flex flex-col'>
+          <div className='flex flex-col w-full'>
             <input
               className='border shadow-lg p-1 w-full'
               type='password'
@@ -69,7 +92,9 @@ export default function Login() {
               onBlur={formik.handleBlur}
             />
             {formik.errors.password && formik.touched.password && (
-              <p className='text-md text-red-500'>{formik.errors.password}</p>
+              <p className='text-md text-red-500 text-center'>
+                {formik.errors.password}
+              </p>
             )}
           </div>
         </div>
