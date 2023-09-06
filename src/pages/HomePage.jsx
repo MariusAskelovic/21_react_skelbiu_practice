@@ -31,7 +31,7 @@ export default function HomePage() {
         {adsDbArr.map((adObj) => (
           <li
             className={`flex flex-col justify-between h-[440px] w-[280px] p-2 ${
-              ctx.userUid === adObj.userId
+              ctx.isUserLoggedIn && ctx.userUid === adObj.userId
                 ? 'bg-orange-200 border-2 border-orange-500 rounded-xl shadow-pink-600 shadow-md'
                 : ''
             }`}

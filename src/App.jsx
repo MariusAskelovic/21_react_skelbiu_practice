@@ -6,6 +6,7 @@ import CreateAdd from './pages/CreateAdd';
 import LoginPage from './pages/LoginPage';
 import { useAuth } from './store/AuthProvider';
 import { Toaster } from 'react-hot-toast';
+import SingleAd from './pages/SingleAd';
 
 export default function App() {
   const ctx = useAuth();
@@ -22,6 +23,7 @@ export default function App() {
             ctx.isUserLoggedIn ? <MyAccountPage /> : <Navigate to={'/login'} />
           }
         />
+        <Route path='/my-ads/:adID' element={<SingleAd />} />
         <Route
           path='/create-ad'
           element={

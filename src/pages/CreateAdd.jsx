@@ -53,10 +53,7 @@ export default function CreateAd() {
   async function sendAd(dataToSend) {
     console.log('e ===', dataToSend);
     try {
-      const docRef = await addDoc(collection(db, 'ads-collection'), {
-        ...dataToSend,
-        id: docRef.id,
-      });
+      const docRef = await addDoc(collection(db, 'ads-collection'), dataToSend);
       console.log('New Ad Made: ', docRef.id);
     } catch (error) {
       console.log('Error while creating an Ad :', error);
